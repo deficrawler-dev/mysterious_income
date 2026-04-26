@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mysterious Income | $INCOME</title>
+<link rel="icon" type="image/png" href="wizard-new.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#c9a84c;
+  --gold2:#f0d080;
+  --gold3:#8b6400;
+  --purple:#4a1d96;
+  --purple2:#7c3aed;
+  --dark:#000000;
+  --dark2:#050508;
+  --dark3:#080810;
+  --surface:rgba(255,255,255,0.03);
+  --border:rgba(201,168,76,0.15);
+  --text:#e8e4f0;
+  --muted:#7a7090;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:default;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#000;}
+::-webkit-scrollbar-thumb{background:var(--gold3);}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  padding:0 4rem;height:64px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(201,168,76,0.1);
+}
+.nav-logo{
+  font-family:'Cinzel Decorative',serif;font-size:0.95rem;
+  color:var(--gold);letter-spacing:3px;
+}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{
+  color:rgba(232,228,240,0.5);text-decoration:none;
+  font-size:0.72rem;letter-spacing:2.5px;text-transform:uppercase;
+  padding:0 1.5rem;height:64px;display:flex;align-items:center;
+  transition:color 0.2s;border-right:1px solid rgba(255,255,255,0.04);
+}
+.nav-links a:hover{color:var(--gold);}
+
+.nav-rich-btn{
+  display:inline-block;
+  padding:0.55rem 1.4rem;
+  background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold3));
+  color:#000;font-family:'Cinzel',serif;font-size:0.65rem;
+  letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;
+  font-weight:700;transition:opacity 0.2s,transform 0.2s;white-space:nowrap;
+}
+.nav-rich-btn:hover{opacity:0.85;transform:translateY(-1px);}
+.mobile-only-btn{display:none;}
+
+.nav-toggle{
+  display:none;
+  width:44px;
+  height:44px;
+  border:1px solid rgba(201,168,76,0.18);
+  background:rgba(201,168,76,0.04);
+  color:var(--gold);
+  border-radius:2px;
+  cursor:pointer;
+  position:relative;
+  transition:border-color 0.25s ease, background 0.25s ease, opacity 0.25s ease;
+  font-size:0;
+  flex-shrink:0;
+}
+
+.nav-toggle:hover{
+  border-color:rgba(201,168,76,0.4);
+  background:rgba(201,168,76,0.08);
+}
+
+.nav-toggle::before,
+.nav-toggle::after{
+  content:'';
+  position:absolute;
+  left:11px;
+  right:11px;
+  height:1.5px;
+  background:var(--gold);
+  transition:transform 0.25s ease, opacity 0.25s ease, top 0.25s ease;
+}
+
+.nav-toggle::before{
+  top:16px;
+  box-shadow:0 6px 0 var(--gold);
+}
+
+.nav-toggle::after{
+  top:28px;
+}
+
+/* TICKER BAR */
+.ticker{
+  position:fixed;top:64px;left:0;width:100%;z-index:999;
+  background:rgba(0,0,0,0.9);border-bottom:1px solid rgba(201,168,76,0.08);
+  padding:0.4rem 0;overflow:hidden;
+}
+.ticker-inner{
+  display:flex;gap:4rem;white-space:nowrap;animation:ticker 30s linear infinite;
+}
+.ticker-item{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.ticker-item span{color:var(--gold);margin-left:0.5rem;}
+.ticker-item .up{color:#22c55e;}
+.ticker-item .down{color:#ef4444;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HERO */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:10rem 2rem 5rem;position:relative;overflow:hidden;text-align:center;
+}
+.hero-bg-img{
+  display:none;
+}
+.hero-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.7) 100%);
+  pointer-events:none;z-index:1;
+}
+.hero-img-wrap{
+  position:relative;z-index:2;
+  width:min(460px, 85vw);margin-bottom:3rem;
+}
+.hero-img-wrap{
+  position:relative;
+  z-index:2;
+  width:min(460px, 85vw);
+  margin-bottom:3rem;
+}
+
+.hero-img-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.hero-img-wrap::after{
+  content:'';
+  position:absolute;
+  inset:-8%;
+  background:radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0) 42%,
+    rgba(0,0,0,0.35) 62%,
+    rgba(0,0,0,0.72) 82%,
+    rgba(0,0,0,0.96) 100%
+  );
+  pointer-events:none;
+  z-index:3;
+}
+
+.hero-img-wrap img{
+  display:block;
+  width:420px;
+  height:auto;
+  margin:0 auto;
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  filter: none;
+}
+.hero-tag{
+  position:relative;z-index:2;
+  font-size:0.65rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;opacity:0.8;
+}
+h1{
+  position:relative;z-index:2;
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(2.5rem,8vw,6rem);
+  line-height:0.95;
+  background:linear-gradient(180deg, #ffffff 0%, var(--gold2) 40%, var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:1.5rem;
+  letter-spacing:-1px;
+}
+.hero-line{
+  position:relative;z-index:2;
+  font-size:clamp(0.8rem,2vw,1rem);color:var(--muted);
+  letter-spacing:4px;text-transform:uppercase;margin-bottom:3rem;
+}
+.hero-stats{
+  position:relative;z-index:2;
+  display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;
+}
+.hero-stat{text-align:center;}
+.hero-stat-val{font-family:'Cinzel',serif;font-size:1.6rem;color:#fff;font-weight:700;}
+.hero-stat-label{font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;}
+.hero-ca{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:1rem;
+  background:rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:2px;padding:0.9rem 1.8rem;
+  cursor:pointer;transition:border-color 0.3s;
+}
+.hero-ca:hover{border-color:rgba(201,168,76,0.5);}
+.hero-ca-label{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.hero-ca-addr{font-family:monospace;font-size:0.78rem;color:var(--gold);}
+.copy-hint{font-size:0.6rem;color:rgba(201,168,76,0.4);letter-spacing:1px;}
+
+/* SECTION BASE */
+section{padding:7rem 2rem;position:relative;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.s-tag{font-size:0.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.s-title{
+  font-family:'Cinzel',serif;font-size:clamp(1.8rem,5vw,3.2rem);
+  font-weight:700;margin-bottom:0.5rem;color:#fff;line-height:1;
+}
+.s-sub{font-size:0.88rem;color:var(--muted);line-height:1.8;max-width:560px;}
+.rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent);margin:0 0 4rem;}
+
+/* GET RICH */
+#rich{background:var(--dark2);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:4rem;}
+.step{
+  background:var(--dark2);padding:3rem 2rem;
+  position:relative;transition:background 0.3s;
+}
+.step:hover{background:rgba(201,168,76,0.03);}
+.step-n{
+  font-family:'Cinzel Decorative',serif;
+  font-size:3rem;color:rgba(201,168,76,0.08);
+  line-height:1;margin-bottom:2rem;display:block;
+}
+.step-icon{font-size:1.5rem;margin-bottom:1rem;display:block;}
+.step-name{font-family:'Cinzel',serif;font-size:1rem;color:#fff;margin-bottom:0.8rem;}
+.step-desc{font-size:0.8rem;color:var(--muted);line-height:1.8;}
+.step-link{
+  display:inline-block;margin-top:1.5rem;font-size:0.7rem;
+  color:var(--gold);text-decoration:none;letter-spacing:2px;text-transform:uppercase;
+  padding-bottom:2px;border-bottom:1px solid rgba(201,168,76,0.3);
+  transition:border-color 0.2s;
+}
+.step-link:hover{border-color:var(--gold);}
+
+/* AIRDROP */
+#airdrop{background:var(--dark3);}
+.airdrop-hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem;
+}
+.airdrop-big{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  background:linear-gradient(135deg,#fff,var(--gold2),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:1rem;
+}
+.airdrop-sub{font-size:0.8rem;color:var(--muted);line-height:1.8;}
+.airdrop-stats{display:flex;flex-direction:column;gap:1px;background:rgba(201,168,76,0.1);}
+.airdrop-stat{
+  background:var(--dark3);padding:1.5rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.airdrop-stat-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.airdrop-stat-val{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold);}
+
+/* MEMES */
+#memes{background:var(--dark2);}
+.memes-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;}
+.memes-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:rgba(0,0,0,0.5);
+}
+.meme{
+  overflow:hidden;position:relative;aspect-ratio:1;
+  background:#000;
+}
+.meme img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s ease, filter 0.5s ease;
+  filter:brightness(0.85) saturate(0.9);
+}
+.meme:hover img{transform:scale(1.05);filter:brightness(1) saturate(1.1);}
+.meme.wide{grid-column:span 2;aspect-ratio:2/1;}
+.meme-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+  opacity:0;transition:opacity 0.3s;
+}
+.meme:hover .meme-overlay{opacity:1;}
+
+/* FOMO */
+#fomo{
+  background:var(--dark);
+  text-align:center;
+  padding:10rem 2rem;
+}
+.fomo-wrap{max-width:700px;margin:0 auto;}
+.fomo-eyebrow{font-size:0.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:block;}
+.fomo-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(2rem,6vw,4rem);color:#fff;
+  margin-bottom:1.5rem;line-height:1.1;
+}
+.fomo-desc{font-size:0.95rem;color:var(--muted);line-height:2;margin-bottom:3.5rem;}
+.fomo-btn{
+  display:inline-block;padding:1.2rem 4rem;
+  background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold3));
+  color:#000;font-family:'Cinzel',serif;font-size:0.8rem;
+  letter-spacing:4px;text-transform:uppercase;text-decoration:none;
+  font-weight:700;transition:opacity 0.3s,transform 0.3s;
+}
+.fomo-btn:hover{opacity:0.85;transform:translateY(-3px);}
+
+/* FOOTER */
+footer{
+  padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(201,168,76,0.08);
+}
+.footer-logo{font-family:'Cinzel Decorative',serif;font-size:0.9rem;color:var(--gold);}
+.footer-right{font-size:0.65rem;color:var(--muted);letter-spacing:2px;text-align:right;line-height:1.8;}
+
+/* COPY TOAST */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);
+  color:var(--gold);padding:0.8rem 2rem;font-size:0.75rem;letter-spacing:2px;
+  text-transform:uppercase;transition:transform 0.3s;z-index:9999;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  nav{
+    padding:0 1rem;
+  }
+.hero-img-wrap img{
+  width: 300px;
+}
+  .nav-toggle{
+    display:block;
+    margin-left:auto;
+  }
+
+  .nav-rich-btn{
+    display:none;
+  }
+  .mobile-only-btn{display:list-item;}
+
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:64px;
+    left:0;
+    width:100%;
+    list-style:none;
+    flex-direction:column;
+    gap:0;
+    background:rgba(0,0,0,0.96);
+    backdrop-filter:blur(18px);
+    border-top:1px solid rgba(201,168,76,0.08);
+    border-bottom:1px solid rgba(201,168,76,0.08);
+  }
+
+  .nav-links.show{
+    display:flex;
+  }
+
+  .nav-links li{
+    width:100%;
+  }
+
+  .nav-links a{
+    width:100%;
+    height:auto;
+    padding:1rem 1.25rem;
+    border-right:none;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    justify-content:flex-start;
+    font-size:0.68rem;
+    letter-spacing:2px;
+  }
+
+  .steps{grid-template-columns:1fr 1fr;}
+  .airdrop-hero{grid-template-columns:1fr;gap:2rem;}
+  .memes-grid{grid-template-columns:repeat(2,1fr);}
+  .meme.wide{grid-column:span 2;}
+  footer{flex-direction:column;gap:1rem;text-align:center;}
+  .footer-right{text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">Address copied</div>
+
+<nav>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:0.5rem;">
+    <img src="wizard-new.png" alt="Wizard" style="height:42px;width:auto;object-fit:contain;"/>
+    $INCOME
+  </div>
+
+  <!-- ADD THIS BUTTON -->
+<button class="nav-toggle" onclick="toggleMenu()" aria-label="Toggle menu"></button>
+
+  <ul class="nav-links" id="mobileMenu">
+    <li><a href="#rich">The Path</a></li>
+    <li><a href="#airdrop">Airdrop</a></li>
+    <li><a href="#memes">Memes</a></li>
+    <li><a href="#fomo">FOMO</a></li>
+    <li class="mobile-only-btn" style="padding:1rem 1.25rem;border-top:1px solid rgba(201,168,76,0.1);">
+      <a href="https://fomo.family/coin?address=BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump&chainId=1399811149&r=DefiCrawler_&source=share_link" target="_blank" style="display:block;text-align:center;padding:0.75rem 1rem;background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold3));color:#000;font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:700;">Get Mysteriously Rich</a>
+    </li>
+  </ul>
+
+  <a href="https://fomo.family/coin?address=BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump&chainId=1399811149&r=DefiCrawler_&source=share_link" target="_blank" class="nav-rich-btn">Get Mysteriously Rich</a>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">$INCOME <span>·</span></span>
+    <span class="ticker-item">CA: BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump <span>·</span></span>
+    <span class="ticker-item">Solana <span>·</span></span>
+    <span class="ticker-item">Unemployed. Unbothered. Mysteriously Wealthy. <span>·</span></span>
+    <span class="ticker-item">$INCOME <span>·</span></span>
+    <span class="ticker-item">CA: BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump <span>·</span></span>
+    <span class="ticker-item">Solana <span>·</span></span>
+    <span class="ticker-item">Unemployed. Unbothered. Mysteriously Wealthy. <span>·</span></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-vignette"></div>
+  <span class="hero-tag">Solana · Mystery Token</span>
+  <div style="display:flex;align-items:flex-end;justify-content:center;gap:0;position:relative;z-index:2;">
+    <img src="wizard-new1.png" alt="Wizard Left" style="width:260px;height:auto;object-fit:contain;opacity:0.85;-webkit-mask-image:linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);mask-image:linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);"/>
+    <div class="hero-img-wrap reveal">
+      <img src="wizard-new.png" alt="Wizard">
+    </div>
+    <img src="wizard-new2.png" alt="Wizard Right" style="width:260px;height:auto;object-fit:contain;opacity:0.85;-webkit-mask-image:linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);mask-image:linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);"/>
+  </div>
+  <h1 style="position:relative;z-index:3;">Mysterious<br/>Income</h1>
+  <p class="hero-line">Unemployed bros with a mysterious source of income</p>
+  <div class="hero-stats reveal">
+    <div class="hero-stat">
+      <div class="hero-stat-val">$1M+</div>
+      <div class="hero-stat-label">Donated</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val" id="live-mcap">—</div>
+      <div class="hero-stat-label">Market Cap</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val" id="live-price">—</div>
+      <div class="hero-stat-label">Price</div>
+    </div>
+  </div>
+  <div class="hero-ca reveal" onclick="copyCA()">
+    <div>
+      <div class="hero-ca-label">Contract Address</div>
+      <div class="hero-ca-addr">BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump</div>
+    </div>
+    <div class="copy-hint">click to copy</div>
+  </div>
+</section>
+
+<!-- GET MYSTERIOUSLY RICH -->
+<section id="rich">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="s-tag">The path to wealth</span>
+      <h2 class="s-title">Get Mysteriously Rich</h2>
+    </div>
+    <div class="rule" style="margin-top:2rem;"></div>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="step-n">01</span>
+        <span class="step-name">Download FOMO</span>
+        <p class="step-desc">Your gateway to the mysterious side of finance. Get the app and enter the unknown.</p>
+        <a href="https://t.co/gN8BKHCPV8" target="_blank" class="step-link">Get the app →</a>
+      </div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <span class="step-name">Buy SOL</span>
+        <p class="step-desc">Acquire Solana from any exchange. You need it for what comes next.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">03</span>
+        <span class="step-name">Swap for $INCOME</span>
+        <p class="step-desc">Swap your SOL for $INCOME. The mysterious source of wealth awakens within you.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">04</span>
+        <span class="step-name">Wait Mysteriously</span>
+        <p class="step-desc">Say nothing. Smile cryptically. Let them wonder how you make money.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AIRDROP -->
+<section id="airdrop">
+  <div class="section-inner">
+    <div class="airdrop-hero reveal">
+      <div>
+        <span class="s-tag">Free riches from nowhere</span>
+        <div class="airdrop-big">The<br/>Airdrop</div>
+        <p class="airdrop-sub">@cryptokillua99 has mysteriously donated over $1M+ worth of $INCOME to holders and bagworkers. No job. No explanation. Just vibes and wealth.</p>
+      </div>
+      <div class="airdrop-stats">
+        <div class="airdrop-stat">
+          <span class="airdrop-stat-label">Total Donated</span>
+          <span class="airdrop-stat-val">$1M+</span>
+        </div>
+        <div class="airdrop-stat">
+          <span class="airdrop-stat-label">Source</span>
+          <span class="airdrop-stat-val">Mysterious</span>
+        </div>
+        <div class="airdrop-stat">
+          <span class="airdrop-stat-label">Explanation</span>
+          <span class="airdrop-stat-val">None Given</span>
+        </div>
+        <div class="airdrop-stat">
+          <span class="airdrop-stat-label">Next Drop</span>
+          <span class="airdrop-stat-val">Unknown</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMES -->
+<section id="memes">
+  <div class="section-inner">
+    <div class="memes-header reveal">
+      <div>
+        <span class="s-tag">The culture</span>
+        <h2 class="s-title">Memes</h2>
+      </div>
+      <p class="s-sub" style="max-width:300px;text-align:right;">The wizards speak in memes.<br/>The wealthy speak in mystery.</p>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="memes-grid reveal">
+      <div class="meme wide">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard1.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard2.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard3.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard4.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme wide">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard5.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard6.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard7.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard8.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard9.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard10.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+      <div class="meme wide">
+        <img src="https://deficrawler-dev.github.io/mysterious_income/wizard11.jpeg" alt="meme"/>
+        <div class="meme-overlay"></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;">
+    <a href="https://x.com/search?q=%24income&src=typed_query&f=media" target="_blank" style="display:inline-block;padding:0.75rem 2.5rem;border:1px solid rgba(201,168,76,0.5);color:var(--gold);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">View More Memes</a>
+  </div>
+</section>
+
+<!-- FOMO -->
+<section id="fomo">
+  <div class="fomo-wrap reveal">
+    <span class="fomo-eyebrow">Everyone knows. You don't.</span>
+    <h2 class="fomo-title">The FOMO<br/>is Real</h2>
+    <p class="fomo-desc">Somewhere right now, a wizard with no job is adding to his mysterious holdings. He didn't announce it. He didn't explain it. He just did it. Don't be the last one to know.</p>
+    <a href="https://fomo.family/coin?address=BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump&chainId=1399811149&r=DefiCrawler_&source=share_link" target="_blank" class="fomo-btn">Get Mysteriously Rich</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mysterious Income</div>
+  <div class="footer-right">
+    $INCOME · Solana<br/>
+    Unemployed. Unbothered. Mysteriously Wealthy.<br/>
+    <span style="display:block;margin-top:0.5rem;font-size:0.65rem;color:rgba(201,168,76,0.5);">
+      Launched by <a href="https://x.com/cryptokillua99" target="_blank" style="color:rgba(201,168,76,0.7);text-decoration:none;">@cryptokillua99</a>
+      &nbsp;·&nbsp;
+      Follow <a href="https://x.com/MystIncome" target="_blank" style="color:rgba(201,168,76,0.7);text-decoration:none;">@MystIncome</a>
+    </span>
+    <span style="color:rgba(201,168,76,0.3);font-size:0.6rem;">Not financial advice.</span>
+  </div>
+</footer>
+
+<script>
+const CA = 'BXnUS5vNFNvnjy2hLx6UCycgH5VvMw8HkC9qfae2pump';
+
+function copyCA() {
+  navigator.clipboard.writeText(CA).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  });
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Try to fetch live price data
+async function fetchPrice() {
+  try {
+    const r = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/64nf4gdnjb3goo9hemmghhkravxgtebtzfbbe8zyf76b');
+    const d = await r.json();
+    if(d.pair) {
+      const p = d.pair;
+      document.getElementById('live-price').textContent = '$' + parseFloat(p.priceUsd).toFixed(6);
+      if (p.fdv) {
+  if (p.fdv >= 1_000_000) {
+    document.getElementById('live-mcap').textContent =
+      '$' + (p.fdv / 1_000_000).toFixed(2) + 'M';
+  } else {
+    document.getElementById('live-mcap').textContent =
+      '$' + (p.fdv / 1_000).toFixed(0) + 'K';
+  }
+}
+    }
+  } catch(e) {}
+}
+fetchPrice();
+</script>
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('show');
+}
+</script>
+</body>
+</html>
